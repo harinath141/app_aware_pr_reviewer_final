@@ -1,0 +1,71 @@
+@import 'tailwindcss';
+
+/* Design tokens. Everything else in the app refers to these through Tailwind utilities, so no
+   component hardcodes a colour. Surfaces are white on a near-white canvas, with one indigo accent. */
+@theme {
+  --font-sans:
+    'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
+
+  --color-canvas: #f7f8fa;
+  --color-surface: #ffffff;
+  --color-line: #e6e8ec;
+  --color-line-strong: #d3d7df;
+
+  --color-ink: #10151f;
+  --color-ink-soft: #4a5468;
+  --color-ink-muted: #79839a;
+
+  --color-accent: #4f46e5;
+  --color-accent-strong: #4338ca;
+  --color-accent-soft: #eef0fe;
+  --color-accent-line: #c7cbf9;
+}
+
+/* Chart colours. Every value below was validated with the dataviz palette checker against the
+   white card surface (--color-surface) - do not hand-edit these without re-running it.
+   - Triage trio: worst adjacent CVD Delta E 25.5, normal-vision 31.6, all >= 3:1 contrast.
+     Deliberately the same hues as the finding status badges, so a reader who learns
+     "emerald = resolved" from the list reads the chart the same way.
+   - Severity ramp: single hue (27.3deg), monotone lightness, every adjacent gap >= 0.06,
+     light end 2.88:1. Ordinal because severity has a meaningful order. */
+:root {
+  --viz-resolved: #059669;
+  --viz-open: #4f46e5;
+  --viz-invalid: #e11d48;
+  --viz-series: #4f46e5;
+  --viz-sev-info: #f17166;
+  --viz-sev-low: #d75a4f;
+  --viz-sev-medium: #bd423a;
+  --viz-sev-high: #a32824;
+  --viz-sev-critical: #8a050c;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-canvas font-sans text-ink antialiased;
+  }
+
+  /* Sections are scroll targets for the sidebar, so they need room for the sticky mobile header. */
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,13 @@
+.git
+.venv
+__pycache__
+.pytest_cache
+.env
+*.pyc
+# The frontend stage installs its own dependencies; a host node_modules would be copied over them.
+frontend/node_modules
+frontend/dist
+# app/static holds only generated dashboard output. Keeping it out of the context means
+# `COPY app ./app` cannot bring a stale bundle in, and `COPY --from=frontend` supplies it fresh -
+# Docker merges directory copies, so an old hashed chunk would otherwise survive in the image.
+app/static

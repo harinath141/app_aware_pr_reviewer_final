@@ -1,0 +1,13 @@
+.env
+.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+
+frontend/node_modules/
+frontend/dist/
+
+# Dashboard build output. Produced by `npm run build` in frontend/, and by the Docker build stage,
+# which is how the image gets it. Generated, so it is not tracked.
+app/static/index.html
+app/static/assets/
